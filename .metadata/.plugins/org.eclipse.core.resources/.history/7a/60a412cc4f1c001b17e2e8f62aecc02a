@@ -1,0 +1,78 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main16637 {
+
+	public static String[] array;
+	public static long val;
+	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		int N = Integer.parseInt(br.readLine());
+		
+		array = new String[N];
+		
+		val = 0;
+		String str = br.readLine();
+		array = str.split("");
+		
+		dfs(0,Long.parseLong(array[0]));
+		
+		
+	}
+	
+	public static void dfs(int start, long value) {
+		if(start >= array.length) {
+			if(val < value) val = value;
+			return;
+		}
+		System.out.println("startPoint : "+ start + " -> value : " + value );
+		
+		
+		
+		long returnVal = 0;
+		String cal = array[start+1];
+		int next = Integer.parseInt(array[start+2]);
+		// 그냥 그 다음 수랑계산하기 
+		returnVal = calculate(value,next,cal);
+		dfs(start+2,returnVal);
+		
+		
+		
+	}
+	
+	public static long calculate(long a, long b, String cal) {
+		long value = 0;
+		switch(cal) {
+		case "+":
+			value = plus(a,b);
+			break;
+		case "-":
+			value = minus(a,b);
+			break;
+		case "*":
+			value = multiple(a,b);
+			break;
+		}
+		
+		return value;
+	}
+	
+	public static long multiple(long a, long b) {
+		return a*b;
+	}
+	
+	public static long plus(long a, long b) {
+		return a + b;
+	}
+	
+	public static long minus(long a, long b) {
+		return a - b;
+	}
+
+}
